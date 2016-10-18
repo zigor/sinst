@@ -61,7 +61,7 @@ namespace Sitecore.Remote.Installation.Client.Response
     /// <returns></returns>
     public string GetValueByElementName(string elementName)
     {
-      return this.GetByRegex(GetValueByNameInInputPattern, elementName);
+      return HttpUtility.UrlEncode(this.GetByRegex(GetValueByNameInInputPattern, elementName));
   }
 
     /// <summary>

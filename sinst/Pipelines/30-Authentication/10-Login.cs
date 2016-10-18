@@ -9,7 +9,6 @@ namespace Sitecore.Remote.Installation.Pipelines
   /// <summary>
   /// Read login page
   /// </summary>
-  /// <seealso cref="IHandler" />
   [Pipeline(PipelineNames.Authentication), Processor(10)]
   public class Login
   {
