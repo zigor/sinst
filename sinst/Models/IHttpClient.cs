@@ -1,4 +1,5 @@
 using System.Collections.Specialized;
+using System.Net;
 
 namespace Sitecore.Remote.Installation.Models
 {
@@ -12,8 +13,9 @@ namespace Sitecore.Remote.Installation.Models
     /// </summary>
     /// <param name="url">The URL.</param>
     /// <param name="data">The data.</param>
+    /// <param name="headers">The headers.</param>
     /// <returns></returns>
-    string Post(string url, NameValueCollection data);
+    string Post(string url, NameValueCollection data, NameValueCollection headers = null);
 
     /// <summary>
     /// Gets the specified URL.
@@ -37,5 +39,13 @@ namespace Sitecore.Remote.Installation.Models
     ///   The connection.
     /// </value>
     IConnection Connection { get; }
+
+    /// <summary>
+    /// Gets the cookie.
+    /// </summary>
+    /// <value>
+    /// The cookie.
+    /// </value>
+    CookieContainer Cookie { get; }
   }
 }

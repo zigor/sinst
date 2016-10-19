@@ -55,6 +55,7 @@
     <Compile Include="Extensions\UriExtensions.cs" />
     <Compile Include="Extensions\WebHeaderCollectionExtensions.cs" />
     <Compile Include="Models\Connection.cs" />
+    <Compile Include="Models\HttpFileUploadClient.cs" />
     <Compile Include="Models\IConnection.cs" />
     <Compile Include="Models\IPackage.cs" />
     <Compile Include="Models\Package.cs" />

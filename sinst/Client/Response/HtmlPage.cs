@@ -17,7 +17,8 @@ namespace Sitecore.Remote.Installation.Client.Response
     /// <summary>
     /// The get name by element type pattern
     /// </summary>
-    public static readonly string GetNameByInputTypePattern = "<input.*?type=\"{0}\".*?name=\"(.*?)\".*?\\/>";
+    public static readonly string GetNameByInputTypePattern = "(<input[^>]*type=['\"]){0}(['\"][^>]*name=\"(?<name>[^\"]*)\"[^>]*>)|(<[^>]*name=\"(?<name>[^>]*)\" type=['\"]){0}(['\"][^>]*>)";
+    //(<input[^>]*type=['\"])submit(['\"][^>]*name=\"(?<name>[^"]*)\"[^>]*>)
 
     /// <summary>
     /// Gets the content.
@@ -48,7 +49,7 @@ namespace Sitecore.Remote.Installation.Client.Response
 
       if (match.Success)
       {
-        return match.Groups.OfType<Group>().LastOrDefault()?.Value ?? string.Empty;
+        return match.Groups.OfType<Group>().LastOrDefault(g => !string.IsNullOrEmpty(g.Value))?.Value ?? string.Empty;
       }
 
       return string.Empty;
@@ -58,11 +59,17 @@ namespace Sitecore.Remote.Installation.Client.Response
     /// Gets the name of the value by element.
     /// </summary>
     /// <param name="elementName">Name of the element.</param>
+    /// <param name="encode">if set to <c>true</c> [encode].</param>
     /// <returns></returns>
-    public string GetValueByElementName(string elementName)
+    public string GetValueByElementName(string elementName, bool encode = true)
     {
-      return HttpUtility.UrlEncode(this.GetByRegex(GetValueByNameInInputPattern, elementName));
-  }
+      var value = this.GetByRegex(GetValueByNameInInputPattern, elementName);
+      if (encode)
+      {
+        return HttpUtility.UrlEncode(value);
+      }
+      return value;
+    }
 
     /// <summary>
     /// Gets the type of the name by element.

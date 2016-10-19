@@ -13,10 +13,10 @@ namespace sinst
     public static void Main(string[] args)
     {
 
-      var packageUri = "";
-      var host = "";
+      var packageUri = "https://github.com/zigor/sitecore.assemblyBinding/releases/download/v1.0/Sitecore.AssemblyBinding-1.0.zip";
+      var host = "http://sc82";
 
-      var credentials = new NetworkCredential("", "");
+      var credentials = new NetworkCredential("admin", "b");
       
       var packagePath = ResolvePackagePathPipeline.Run(packageUri).Result;
 
