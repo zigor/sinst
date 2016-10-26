@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Web;
 using Sitecore.Remote.Installation.Diagnostic;
 
 namespace Sitecore.Remote.Installation.Storage
@@ -21,7 +22,7 @@ namespace Sitecore.Remote.Installation.Storage
       Assert.ArgumentNotNullOrEmpty(path, nameof(path));
 
       var uri = new Uri(path);
-      var packageName = uri.Segments.LastOrDefault();
+      var packageName = HttpUtility.UrlDecode(uri.Segments.LastOrDefault());
       if (string.IsNullOrEmpty(uri.AbsoluteUri) || string.IsNullOrEmpty(packageName))
       {
         throw new ArgumentException("Invalid path specified.", nameof(path));

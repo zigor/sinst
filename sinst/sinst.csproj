@@ -74,6 +74,8 @@
     <Compile Include="Pipelines\50-InstallationConflicts\10-OverrideFilesCommand.cs" />
     <Compile Include="Pipelines\50-InstallationConflicts\InstallationConflictDetails.cs" />
     <Compile Include="Pipelines\50-InstallationConflicts\InstallationConflictsPipeline.cs" />
+    <Compile Include="Pipelines\50-InstallationConflicts\20-OverrideItemsCommand.cs" />
+    <Compile Include="Pipelines\50-InstallationConflicts\30-OverrideSecurityCommand.cs" />
     <Compile Include="Pipelines\Core\Pipeline.cs" />
     <Compile Include="Pipelines\Core\PipelineContext.cs" />
     <Compile Include="Pipelines\Core\Processor.cs" />

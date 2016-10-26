@@ -6,10 +6,10 @@ using Sitecore.Remote.Installation.Pipelines.Metadata;
 namespace Sitecore.Remote.Installation.Pipelines
 {
   /// <summary>
-  /// Override Fiels command
+  /// Override items conflict
   /// </summary>
-  [Pipeline(PipelineNames.InstallationConflicts), Processor(10)]
-  public class OverrideFilesCommand
+  [Pipeline(PipelineNames.InstallationConflicts), Processor(20)]
+  public class OverrideItemsConflict
   {
     /// <summary>
     /// Processes the specified context.
@@ -20,12 +20,12 @@ namespace Sitecore.Remote.Installation.Pipelines
       Assert.ArgumentNotNull(context, nameof(context));
 
       var command = context.Model.CommandsResponse.FindByName("ShowModalDialog");
-      if (command?.Value?.Contains("xmlcontrol=YesNoCancelAll") != true)
+      if (command?.Value?.Contains("xmlcontrol=Installer.GetPasteMode") != true)
       {
         return;
       }
 
-      context.Model.Result = "yes";
+      context.Model.Result = "2|3|True";
       context.Model.RemotePipelineId = context.Model.CommandsResponse.FindByName("SetPipeline")?.Value;
     }
   }
