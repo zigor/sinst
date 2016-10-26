@@ -7,7 +7,7 @@ namespace Sitecore.Remote.Installation.Client.Response
   /// <summary>
   /// Html page response
   /// </summary>
-  public class HtmlPage
+  public class HtmlResponse
   {
     /// <summary>
     /// The get value by name in hidden pattern
@@ -29,10 +29,10 @@ namespace Sitecore.Remote.Installation.Client.Response
     public string Content { get; private set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="HtmlPage"/> class.
+    /// Initializes a new instance of the <see cref="HtmlResponse"/> class.
     /// </summary>
     /// <param name="content">The content.</param>
-    public HtmlPage(string content)
+    public HtmlResponse(string content)
     {
       this.Content = content;
     }

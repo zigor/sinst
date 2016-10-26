@@ -28,7 +28,7 @@ namespace Sitecore.Remote.Installation.Pipelines
         return;
       }
 
-      var loginPage = new HtmlPage(loginContent);
+      var loginPage = new HtmlResponse(loginContent);
 
       var viewState = loginPage.GetValueByElementName("__VIEWSTATE");
       var submit = loginPage.GetNameByElementType("submit");
