@@ -24,5 +24,10 @@
     /// The install package
     /// </summary>
     public const string InstallPackage = "InstallPackage";
+
+    /// <summary>
+    /// The installation conflicts
+    /// </summary>
+    public const string InstallationConflicts = "InstallationConflicts";
   }
 }

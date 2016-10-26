@@ -1,5 +1,4 @@
 ﻿using Sitecore.Remote.Installation.Attributes;
-using Sitecore.Remote.Installation.Client;
 using Sitecore.Remote.Installation.Client.Requests;
 using Sitecore.Remote.Installation.Models;
 using Sitecore.Remote.Installation.Pipelines.Metadata;
@@ -7,10 +6,10 @@ using Sitecore.Remote.Installation.Pipelines.Metadata;
 namespace Sitecore.Remote.Installation.Pipelines
 {
   /// <summary>
-  /// Uploads package
+  /// Start installation process
   /// </summary>
-  [Pipeline(PipelineNames.InstallPackage), Processor(10)]
-  public class UploadPackage
+  [Pipeline(PipelineNames.InstallPackage), Processor(20)]
+  public class StartInstallationProcess
   {
     /// <summary>
     /// Processes the specified context.
@@ -18,8 +17,8 @@ namespace Sitecore.Remote.Installation.Pipelines
     /// <param name="context">The context.</param>
     public void Process(IPipelineContext<InstallPackageDetails> context)
     {
-      new UploadPackageWizardRequest(context.Model.Client)
-        .Upload(context.Model.Package);
+      new InstallationPackageWizardRequest(context.Model.Client)
+          .Install(context.Model.Package);
     }
   }
 }

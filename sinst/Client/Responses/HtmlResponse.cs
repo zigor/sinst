@@ -2,7 +2,7 @@
 using System.Text.RegularExpressions;
 using System.Web;
 
-namespace Sitecore.Remote.Installation.Client.Response
+namespace Sitecore.Remote.Installation.Client.Responses
 {
   /// <summary>
   /// Html page response

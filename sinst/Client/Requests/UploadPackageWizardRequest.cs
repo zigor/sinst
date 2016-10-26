@@ -1,10 +1,10 @@
 ﻿using System.Collections.Specialized;
 using System.Linq;
-using Sitecore.Remote.Installation.Client.Response;
+using Sitecore.Remote.Installation.Client.Responses;
 using Sitecore.Remote.Installation.Diagnostic;
 using Sitecore.Remote.Installation.Models;
 
-namespace Sitecore.Remote.Installation.Client
+namespace Sitecore.Remote.Installation.Client.Requests
 {
   /// <summary>
   /// Upload package wizard request
@@ -77,7 +77,7 @@ namespace Sitecore.Remote.Installation.Client
     /// Opens this instance.
     /// </summary>
     /// <returns></returns>
-    protected virtual string Open()
+    private string Open()
     {
       var uploadPageContent = this.Client.Get(uploadPackageWizardUrl);
       return uploadPageContent;

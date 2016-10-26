@@ -1,6 +1,6 @@
 ﻿using System.Collections.Specialized;
 using Sitecore.Remote.Installation.Attributes;
-using Sitecore.Remote.Installation.Client.Response;
+using Sitecore.Remote.Installation.Client.Responses;
 using Sitecore.Remote.Installation.Models;
 using Sitecore.Remote.Installation.Pipelines.Metadata;
 
