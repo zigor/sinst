@@ -53,11 +53,16 @@
     <Compile Include="Client\Responses\JsonResponse.cs" />
     <Compile Include="Client\Requests\UploadPackageWizardRequest.cs" />
     <Compile Include="Diagnostic\Assert.cs" />
+    <Compile Include="Installer\Events\InputRequiredEventArgs.cs" />
+    <Compile Include="Installer\Events\MessageLevel.cs" />
+    <Compile Include="Installer\Events\OutputRequredEventArgs.cs" />
+    <Compile Include="Installer\UiInstallerEvents.cs" />
     <Compile Include="Extensions\HttpWebRequestExtensions.cs" />
     <Compile Include="Extensions\HttpWebResponseExtensions.cs" />
     <Compile Include="Extensions\NameValueCollectionExtensions.cs" />
     <Compile Include="Extensions\UriExtensions.cs" />
     <Compile Include="Extensions\WebHeaderCollectionExtensions.cs" />
+    <Compile Include="Installer\UiInstaller.cs" />
     <Compile Include="Models\Connection.cs" />
     <Compile Include="Models\HttpFileUploadClient.cs" />
     <Compile Include="Models\IConnection.cs" />

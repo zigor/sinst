@@ -154,9 +154,6 @@ namespace Sitecore.Remote.Installation.Client.Requests
 
           this.Client.Post(InstallationWizardUrl, resultFormData);
         }
-
-        Console.Write(response);
-
         await Task.Delay(2000);
 
       } while (!string.IsNullOrEmpty(response));

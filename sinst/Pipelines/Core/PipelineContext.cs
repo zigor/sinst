@@ -34,13 +34,5 @@ namespace Sitecore.Remote.Installation.Pipelines.Core
     ///   <c>true</c> if aborted; otherwise, <c>false</c>.
     /// </value>
     public bool Aborted { get; set; }
-
-    /// <summary>
-    ///   Gets or sets the state.
-    /// </summary>
-    /// <value>
-    ///   The state.
-    /// </value>
-    public string State { get; set; }
   }
 }

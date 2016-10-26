@@ -4,7 +4,7 @@ namespace Sitecore.Remote.Installation.Models
   /// Context definition
   /// </summary>
   /// <typeparam name="TModel"></typeparam>
-  public interface IPipelineContext<TModel>
+  public interface IPipelineContext<out TModel>
   {
     /// <summary>
     /// Gets the model.
@@ -21,13 +21,5 @@ namespace Sitecore.Remote.Installation.Models
     ///   <c>true</c> if aborted; otherwise, <c>false</c>.
     /// </value>
     bool Aborted { get; set; }
-
-    /// <summary>
-    /// Gets or sets the state.
-    /// </summary>
-    /// <value> 
-    /// The state.
-    /// </value>
-    string State { get; set; }
   }
 }
