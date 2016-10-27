@@ -14,6 +14,14 @@ namespace Sitecore.Remote.Installation.Client
   public class HttpClient : IHttpClient
   {
     /// <summary>
+    /// Initializes the <see cref="HttpClient"/> class.
+    /// </summary>
+    static HttpClient()
+    {
+      ServicePointManager.ServerCertificateValidationCallback = (sender, certification, chain, sslPolicyErrors) => true;
+    }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="HttpClient" /> class.
     /// </summary>
     /// <param name="conneciton">The conneciton.</param>

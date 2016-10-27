@@ -31,7 +31,17 @@ namespace Sitecore.Remote.Installation.Client.Responses
     /// <returns></returns>
     public Command FindByName(string name)
     {
-      return this.Commands.FirstOrDefault(c => c.CommandName == name);
+      return this.FindAllByName(name).FirstOrDefault();
+    }
+
+    /// <summary>
+    /// Finds the name of all by.
+    /// </summary>
+    /// <param name="name">The name.</param>
+    /// <returns></returns>
+    public IEnumerable<Command> FindAllByName(string name)
+    {
+      return this.Commands.Where(c => c.CommandName == name);
     }
 
     /// <summary>

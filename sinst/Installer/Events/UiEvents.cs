@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Specialized;
-using Sitecore.Remote.Installation.Installer.Events;
 
-namespace Sitecore.Remote.Installation.Installer
+namespace Sitecore.Remote.Installation.Installer.Events
 {
   /// <summary>
   /// Ui installer events
   /// </summary>
-  public class UiInstallerEvents
+  public class UiEvents
   {
     /// <summary>
     ///   The input
@@ -24,7 +23,7 @@ namespace Sitecore.Remote.Installation.Installer
     /// </summary>
     /// <param name="message">The message.</param>
     /// <param name="level">The level.</param>
-    public void RaiseOutputRequired(string message, MessageLevel level)
+    public void RaiseOutputRequired(string message, MessageLevel level = MessageLevel.Details)
     {
       var handler = this.Output;
       handler?.Invoke(this, new OutputRequredEventArgs(message, level));
@@ -33,13 +32,14 @@ namespace Sitecore.Remote.Installation.Installer
     /// <summary>
     /// Raises the output required.
     /// </summary>
+    /// <param name="message">The message.</param>
     /// <param name="choices">The choices.</param>
     /// <returns></returns>
-    public string RaiseInputRequired(NameValueCollection choices)
+    public string RaiseInputRequired(string message, NameValueCollection choices)
     {
       var handler = this.Input;
 
-      var args = new InputRequiredEventArgs(choices);
+      var args = new InputRequiredEventArgs(message, choices);
       handler?.Invoke(this, args);
 
       return args.Result;

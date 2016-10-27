@@ -9,6 +9,15 @@ namespace Sitecore.Remote.Installation.Installer.Events
   public class OutputRequredEventArgs : EventArgs
   {
     /// <summary>
+    /// Initializes a new instance of the <see cref="OutputRequredEventArgs" /> class.
+    /// </summary>
+    /// <param name="message">The message.</param>
+    public OutputRequredEventArgs(string message) : this(message, MessageLevel.Details)
+    {
+
+    }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="OutputRequredEventArgs"/> class.
     /// </summary>
     /// <param name="message">The message.</param>

@@ -1,25 +1,28 @@
-﻿using System;
-using System.Collections.Specialized;
+﻿using System.Collections.Specialized;
+using System.Web;
 using Sitecore.Remote.Installation.Attributes;
 using Sitecore.Remote.Installation.Diagnostic;
 using Sitecore.Remote.Installation.Installer;
-using Sitecore.Remote.Installation.Installer.Events;
 using Sitecore.Remote.Installation.Models;
 using Sitecore.Remote.Installation.Pipelines.Metadata;
 
 namespace Sitecore.Remote.Installation.Pipelines
 {
   /// <summary>
-  /// Override items conflict
+  ///   Override items conflict
   /// </summary>
-  [Pipeline(PipelineNames.InstallationConflicts), Processor(20)]
-  public class OverrideItemsConflict
+  [Pipeline(PipelineNames.InstallationConflicts)]
+  [Processor(20)]
+  public class OverrideItemsConflict : InstallerCommandProcessor
   {
     /// <summary>
-    /// The default choices
+    ///   The default choices
     /// </summary>
     private static readonly NameValueCollection defaultChoices;
 
+    /// <summary>
+    ///   Initializes the <see cref="OverrideItemsConflict" /> class.
+    /// </summary>
     static OverrideItemsConflict()
     {
       defaultChoices = new NameValueCollection
@@ -41,10 +44,25 @@ namespace Sitecore.Remote.Installation.Pipelines
     }
 
     /// <summary>
-    /// Processes the specified context.
+    ///   Initializes a new instance of the <see cref="OverrideItemsConflict" /> class.
+    /// </summary>
+    public OverrideItemsConflict() : this(UiInstaller.Instance)
+    {
+    }
+
+    /// <summary>
+    ///   Initializes a new instance of the <see cref="OverrideItemsConflict" /> class.
+    /// </summary>
+    /// <param name="installer">The installer.</param>
+    public OverrideItemsConflict(UiInstaller installer) : base(installer)
+    {
+    }
+
+    /// <summary>
+    ///   Processes the specified context.
     /// </summary>
     /// <param name="context">The context.</param>
-    public void Process(IPipelineContext<InstallationConflictDetails> context)
+    public override void Process(IPipelineContext<InstallationConflictDetails> context)
     {
       Assert.ArgumentNotNull(context, nameof(context));
 
@@ -54,12 +72,10 @@ namespace Sitecore.Remote.Installation.Pipelines
         return;
       }
 
-      var message = "Item being installed already exists in database: " + System.Web.HttpUtility.ParseQueryString(command.Value)["ph"];
-     
+      var message = "Item being installed already exists in database: " +
+                    HttpUtility.ParseQueryString(command.Value)["ph"];
 
-      UiInstaller.Instance.Events.RaiseOutputRequired(message, MessageLevel.Details);
-
-      context.Model.Result = UiInstaller.Instance.Events.RaiseInputRequired(new NameValueCollection(defaultChoices));
+      context.Model.Result = this.Installer.Events.RaiseInputRequired(message, new NameValueCollection(defaultChoices));
       context.Model.RemotePipelineId = context.Model.CommandsResponse.FindByName("SetPipeline")?.Value;
     }
   }

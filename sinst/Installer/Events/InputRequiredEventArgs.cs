@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Specialized;
 
 namespace Sitecore.Remote.Installation.Installer.Events
@@ -7,17 +6,18 @@ namespace Sitecore.Remote.Installation.Installer.Events
   /// Input required event args
   /// </summary>
   /// <seealso cref="System.EventArgs" />
-  public class InputRequiredEventArgs : EventArgs
+  public class InputRequiredEventArgs : OutputRequredEventArgs
   {
     /// <summary>
-    /// Initializes a new instance of the <see cref="InputRequiredEventArgs"/> class.
+    /// Initializes a new instance of the <see cref="InputRequiredEventArgs" /> class.
     /// </summary>
+    /// <param name="message">The message.</param>
     /// <param name="choices">The choices.</param>
-    public InputRequiredEventArgs(NameValueCollection choices)
+    public InputRequiredEventArgs(string message, NameValueCollection choices) : base(message, MessageLevel.Details)
     {
       this.Choices = choices;
     }
-
+    
     /// <summary>
     /// Gets or sets the choise.
     /// </summary>

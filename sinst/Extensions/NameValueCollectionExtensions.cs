@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Collections.Specialized;
+﻿using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using Sitecore.Remote.Installation.Diagnostic;
@@ -58,6 +56,19 @@ namespace Sitecore.Remote.Installation.Extensions
 
         to.Add(key, from[key]);
       }
+    }
+
+    /// <summary>
+    /// Determines whether the specified value contains value.
+    /// </summary>
+    /// <param name="collection">The collection.</param>
+    /// <param name="value">The value.</param>
+    /// <returns></returns>
+    public static bool ContainsValue(this NameValueCollection collection, string value)
+    {
+      Assert.ArgumentNotNull(collection, nameof(collection));
+
+      return collection.AllKeys.Any(k => collection[k] == value);
     }
   }
 }
