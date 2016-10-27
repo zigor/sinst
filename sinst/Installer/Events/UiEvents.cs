@@ -9,6 +9,21 @@ namespace Sitecore.Remote.Installation.Installer.Events
   public class UiEvents
   {
     /// <summary>
+    /// The start
+    /// </summary>
+    public EventHandler Start;
+
+    /// <summary>
+    /// The complete
+    /// </summary>
+    public EventHandler Success;
+
+    /// <summary>
+    /// The failure
+    /// </summary>
+    public EventHandler Failure;
+
+    /// <summary>
     ///   The input
     /// </summary>
     public EventHandler<InputRequiredEventArgs> Input;
@@ -17,6 +32,33 @@ namespace Sitecore.Remote.Installation.Installer.Events
     /// The output
     /// </summary>
     public EventHandler<OutputRequredEventArgs> Output;
+
+    /// <summary>
+    /// Raises the start.
+    /// </summary>
+    public void RaiseStart()
+    {
+      var handler = this.Start;
+      handler?.Invoke(this, EventArgs.Empty);
+    }
+
+    /// <summary>
+    /// Raises the success.
+    /// </summary>
+    public void RaiseSuccess()
+    {
+      var handler = this.Success;
+      handler?.Invoke(this, EventArgs.Empty);
+    }
+
+    /// <summary>
+    /// Raises the failure.
+    /// </summary>
+    public void RaiseFailure()
+    {
+      var handler = this.Failure;
+      handler?.Invoke(this, EventArgs.Empty);
+    }
 
     /// <summary>
     /// Raises the output required.

@@ -44,6 +44,8 @@ namespace Sitecore.Remote.Installation.Pipelines
         return;
       }
 
+      this.Installer.Events.RaiseFailure();
+
       var message = "Installation was aborted by user.";
       this.Installer.Events.RaiseOutputRequired(message, MessageLevel.Error);
     }

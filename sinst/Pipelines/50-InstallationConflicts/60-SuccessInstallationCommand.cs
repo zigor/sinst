@@ -38,14 +38,14 @@ namespace Sitecore.Remote.Installation.Pipelines
     {
       Assert.ArgumentNotNull(context, nameof(context));
 
-      var command =
-        context.Model.CommandsResponse.FindAllByName("SetStyle").FirstOrDefault(c => c.Id == "SuccessMessage");
+      var command = context.Model.CommandsResponse.FindAllByName("SetStyle").FirstOrDefault(c => c.Id == "SuccessMessage");
       if (command?.Value != string.Empty)
       {
         return;
       }
 
-      this.Installer.Events.RaiseOutputRequired("The package has been installed.", MessageLevel.Details);
+      this.Installer.Events.RaiseSuccess();
+      this.Installer.Events.RaiseOutputRequired("The package has been installed.");
     }
   }
 }

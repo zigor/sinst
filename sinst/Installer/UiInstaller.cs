@@ -59,6 +59,9 @@ namespace Sitecore.Remote.Installation.Installer
 
       this.Events.Input += inputHandler;
       this.Events.Output += outputHandler;
+      this.Events.Start += options.Start;
+      this.Events.Success += options.Success;
+      this.Events.Failure += options.Failure;
 
       this.BeginInstallation(packageUri);
       
@@ -70,6 +73,9 @@ namespace Sitecore.Remote.Installation.Installer
 
       this.Events.Input -= inputHandler;
       this.Events.Output -= outputHandler;
+      this.Events.Start -= options.Start;
+      this.Events.Success -= options.Success;
+      this.Events.Failure -= options.Failure;
     }
 
     /// <summary>
@@ -101,7 +107,6 @@ namespace Sitecore.Remote.Installation.Installer
     private void OnOutputRequired(object sender, OutputRequredEventArgs e, InstallerOptions options)
     {
       var handler = options.Output;
-
       handler?.Invoke(sender, e);
     }
 

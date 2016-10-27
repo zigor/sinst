@@ -24,8 +24,16 @@ namespace Sitecore.Remote.Installation
 
       arguments.Options.Input += uiConsole.Events.Input;
       arguments.Options.Output += uiConsole.Events.Output;
-      
+
+      arguments.Options.Start += uiConsole.Events.Start;
+      arguments.Options.Success += uiConsole.Events.Success;
+      arguments.Options.Failure += uiConsole.Events.Failure;
+
+      uiConsole.StartProgress();
+
       UiInstaller.Instance.Install(arguments.Package, arguments.Options);
+
+      uiConsole.StopProgress();
 
       arguments.Options.Input -= uiConsole.Events.Input;
       arguments.Options.Output -= uiConsole.Events.Output;

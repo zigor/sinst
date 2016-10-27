@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Sitecore.Remote.Installation.Installer.Events;
 
 namespace Sitecore.Remote.Installation.Interaction
@@ -8,6 +10,11 @@ namespace Sitecore.Remote.Installation.Interaction
   /// </summary>
   public class UiConsole
   {
+    /// <summary>
+    /// The show progress
+    /// </summary>
+    private bool showProgress = true;
+
     /// <summary>
     /// The events
     /// </summary>
@@ -22,6 +29,59 @@ namespace Sitecore.Remote.Installation.Interaction
 
       this.Events.Input += OnInputRequired;
       this.Events.Output += OnOutputRequred;
+
+      this.Events.Start += (s, a) => this.StartProgress();
+      this.Events.Failure += (s, a) => this.StopProgress();
+      this.Events.Success += (s, a) => this.StopProgress();
+    }
+
+    /// <summary>
+    /// Starts the progress.
+    /// </summary>
+    public void StartProgress()
+    {
+      Task.Run(() => this.Progress());
+    }
+
+    /// <summary>
+    /// Progresses this instance.
+    /// </summary>
+    private void Progress()
+    {
+      this.showProgress = true;
+      ResetLine();
+      var progressBar = 0;
+      while (this.showProgress)
+      {
+        progressBar += 1;
+        if (progressBar > 8)
+        {
+          ResetLine();
+
+          progressBar = 0;
+        }
+        Console.Write(".");
+
+        Thread.Sleep(1000);
+      }
+    }
+
+    /// <summary>
+    /// Resets the line.
+    /// </summary>
+    private static void ResetLine()
+    {
+      Console.SetCursorPosition(0, Console.CursorTop);
+      Console.Write(new string(' ', Console.WindowWidth - 1));
+      Console.SetCursorPosition(0, Console.CursorTop);
+    }
+
+    /// <summary>
+    /// Stops the progress.
+    /// </summary>
+    public void StopProgress()
+    {
+      this.showProgress = false;
     }
 
     /// <summary>
@@ -29,8 +89,9 @@ namespace Sitecore.Remote.Installation.Interaction
     /// </summary>
     /// <param name="sender">The sender.</param>
     /// <param name="e">The <see cref="OutputRequredEventArgs"/> instance containing the event data.</param>
-    private static void OnOutputRequred(object sender, OutputRequredEventArgs e)
+    private void OnOutputRequred(object sender, OutputRequredEventArgs e)
     {
+      ResetLine();
       Console.WriteLine(e.Message);
     }
 
@@ -40,8 +101,13 @@ namespace Sitecore.Remote.Installation.Interaction
     /// <param name="sender">The sender.</param>
     /// <param name="e">The <see cref="InputRequiredEventArgs"/> instance containing the event data.</param>
     /// <exception cref="ArgumentException">Wrong choice</exception>
-    private static void OnInputRequired(object sender, InputRequiredEventArgs e)
+    private void OnInputRequired(object sender, InputRequiredEventArgs e)
     {
+      this.StopProgress();
+
+      ResetLine();
+
+      Console.WriteLine(e.Message);
       Console.WriteLine("Please choose one of the following options:");
       Console.WriteLine();
 
@@ -50,7 +116,7 @@ namespace Sitecore.Remote.Installation.Interaction
         Console.WriteLine($"\t[{i + 1}]. {e.Choices.AllKeys[i]}");
       }
 
-      Console.Write("...> ");
+      Console.Write("> ");
       var key = Console.ReadLine();
       var option = GetOptionNumber(key);
 
@@ -60,6 +126,8 @@ namespace Sitecore.Remote.Installation.Interaction
       }
 
       e.Result = e.Choices[e.Choices.AllKeys[option]];
+
+      this.StartProgress();
     }
 
 

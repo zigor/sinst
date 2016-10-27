@@ -49,6 +49,8 @@ namespace Sitecore.Remote.Installation.Pipelines
       var errorDescription = messages.FirstOrDefault(m => m.Id == "ErrorDescription")?.Value;
       var failureReason = messages.FirstOrDefault(m => m.Id == "FailingReason")?.Value;
 
+      this.Installer.Events.RaiseFailure();
+
       this.Installer.Events.RaiseOutputRequired("The installation failed.", MessageLevel.Error);
       this.Installer.Events.RaiseOutputRequired(failureReason, MessageLevel.Error);
       this.Installer.Events.RaiseOutputRequired(errorDescription, MessageLevel.Error);

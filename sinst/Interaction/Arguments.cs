@@ -152,7 +152,11 @@ namespace Sitecore.Remote.Installation.Interaction
       {
         var option = args.FirstOrDefault(optionNames.Contains);
 
-        return string.Join(string.Empty, args.SkipWhile(a => a != option).TakeWhile(a => ShortOptionsSet.Contains(a) || LongOptionsSet.Contains(a))).Trim();
+        if (option != null)
+        {
+          return string.Join(string.Empty, args.SkipWhile(a => a != option).SkipWhile(a => a == option).TakeWhile(a => !ShortOptionsSet.Contains(a) && !LongOptionsSet.Contains(a))).Trim();
+        }
+        return null;
       }
 
       return args.Length >= 2 && defaultPositioninArgument < args.Length ? args[defaultPositioninArgument] : null;
@@ -178,7 +182,13 @@ namespace Sitecore.Remote.Installation.Interaction
 
       var credentials = new NetworkCredential(user, password);
 
-      return new InstallerOptions(host, credentials);
+      var options = new InstallerOptions(host, credentials);
+
+      if (FindOptionValue(args, int.MaxValue, "-s", "-silent") == "false")
+      {
+        options.Silent = false;
+      }
+      return options;
     }
   }
 }

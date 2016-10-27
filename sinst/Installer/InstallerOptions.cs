@@ -56,6 +56,30 @@ namespace Sitecore.Remote.Installation.Installer
     public string SilentOptionsSet { get; set; }
 
     /// <summary>
+    /// Gets or sets the start.
+    /// </summary>
+    /// <value>
+    /// The start.
+    /// </value>
+    public EventHandler Start;
+
+    /// <summary>
+    /// Gets or sets the start.
+    /// </summary>
+    /// <value>
+    /// The start.
+    /// </value>
+    public EventHandler Success;
+
+    /// <summary>
+    /// Gets or sets the start.
+    /// </summary>
+    /// <value>
+    /// The start.
+    /// </value>
+    public EventHandler Failure;
+
+    /// <summary>
     ///   The input
     /// </summary>
     public EventHandler<InputRequiredEventArgs> Input;
