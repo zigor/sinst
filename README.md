@@ -34,5 +34,5 @@ Parameter List:
 ```
 Example:
 ```
-sinst http://sc82 https://github.com/zigor/sitecore.assemblyBinding/releases/download/v1.0/Sitecore.AssemblyBinding-1.0.zip
+sinst http://sc82 https://github.com/zigor/sitecore.assemblyBinding/releases/download/v1.0.1/Sitecore.AssemblyBinding-1.0.1.zip
 ```
