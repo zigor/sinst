@@ -1,4 +1,5 @@
 ﻿using System.Collections.Specialized;
+using System.Linq;
 using Sitecore.Remote.Installation.Attributes;
 using Sitecore.Remote.Installation.Client.Responses;
 using Sitecore.Remote.Installation.Models;
@@ -36,6 +37,8 @@ namespace Sitecore.Remote.Installation.Pipelines
       var viewStateGenerator = loginPage.GetValueByElementName("__VIEWSTATEGENERATOR");
       var eventValidation = loginPage.GetValueByElementName("__EVENTVALIDATION");
 
+      var loginPrefix = GetLoginPrefix(submit);
+
       var data = new NameValueCollection
       {
         { "__EVENTTARGET", "" },
@@ -43,12 +46,28 @@ namespace Sitecore.Remote.Installation.Pipelines
         { "__VIEWSTATE", viewState },
         { "__VIEWSTATEGENERATOR", viewStateGenerator },
         { "__EVENTVALIDATION", eventValidation },
-        { "UserName", pipelineContext.Model.Connection.Credentials.UserName },
-        { "Password", pipelineContext.Model.Connection.Credentials.Password },
+        { loginPrefix + "UserName", pipelineContext.Model.Connection.Credentials.UserName },
+        { loginPrefix + "Password", pipelineContext.Model.Connection.Credentials.Password },
         { submit, submitValue }
       };
 
       client.Post("sitecore/login", data);
+    }
+
+    /// <summary>
+    /// Gets the login prefix.
+    /// </summary>
+    /// <param name="submit">The submit.</param>
+    /// <returns></returns>
+    private static string GetLoginPrefix(string submit)
+    {
+      var loginPrefix = submit.Split('$').Reverse().Skip(1).FirstOrDefault() ?? string.Empty;
+
+      if (!string.IsNullOrEmpty(loginPrefix))
+      {
+        loginPrefix += "$";
+      }
+      return loginPrefix;
     }
   }
 }
