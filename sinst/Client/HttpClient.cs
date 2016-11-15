@@ -128,11 +128,13 @@ namespace Sitecore.Remote.Installation.Client
       request.ContentLength = data?.Length ?? 0;
       request.Write(data);
 
+      request.AllowAutoRedirect = false;
+      
       HttpWebResponse response = response = request.GetResponse() as HttpWebResponse;
       
       if (response != null)
       {
-        response.Headers.CopyTo(this.Headers, "Cookie");
+        response.Headers.CopyTo(this.Headers, "Cookie", "Set-Cookie");
         this.Cookie.Add(response.Cookies);
 
         return response.Read();
