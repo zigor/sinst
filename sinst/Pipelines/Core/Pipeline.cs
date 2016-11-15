@@ -35,7 +35,7 @@ namespace Sitecore.Remote.Installation.Pipelines.Core
     /// <param name="name">The name.</param>
     /// <param name="model">The model.</param>
     /// <returns></returns>
-    public static async Task Run<TModel>(string name, TModel model)
+    public static async Task<bool> Run<TModel>(string name, TModel model)
     {
       IEnumerable<Processor> processors = null;
       if (!Pipelines.TryGetValue(name, out processors))
@@ -49,6 +49,8 @@ namespace Sitecore.Remote.Installation.Pipelines.Core
                                         p.Run(context);
                                         return !context.Aborted;
                                       }).ToList());
+
+      return !context.Aborted;
     }    
   }
 }

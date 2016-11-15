@@ -24,9 +24,10 @@ namespace Sitecore.Remote.Installation.Pipelines
     {
       IHttpClient client = new HttpClient(new Connection { Host = host, Credentials = credentials});
 
-      Pipeline.Run(PipelineNames.Authentication, client).Wait();
-
-      await Pipeline.Run(PipelineNames.InstallPackage, new InstallPackageDetails(packagePath, client));
+      if (Pipeline.Run(PipelineNames.Authentication, client).Result)
+      {
+        await Pipeline.Run(PipelineNames.InstallPackage, new InstallPackageDetails(packagePath, client));
+      }
     }
   }
 }

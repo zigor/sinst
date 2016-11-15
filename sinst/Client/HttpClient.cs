@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Specialized;
 using System.Net;
+using System.Web;
 using Sitecore.Remote.Installation.Diagnostic;
 using Sitecore.Remote.Installation.Extensions;
 using Sitecore.Remote.Installation.Models;
@@ -81,7 +82,8 @@ namespace Sitecore.Remote.Installation.Client
       this.Headers.CopyTo(request.Headers, "Cookie");
 
       request.Accept = "Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8";
-      request.UserAgent = "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.59 Safari/537.36";
+      request.UserAgent =
+        "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.59 Safari/537.36";
       request.CookieContainer = this.Cookie;
 
       request.ContentType = "application/x-www-form-urlencoded";
@@ -126,8 +128,8 @@ namespace Sitecore.Remote.Installation.Client
       request.ContentLength = data?.Length ?? 0;
       request.Write(data);
 
-      var response = request.GetResponse() as HttpWebResponse;
-
+      HttpWebResponse response = response = request.GetResponse() as HttpWebResponse;
+      
       if (response != null)
       {
         response.Headers.CopyTo(this.Headers, "Cookie");
