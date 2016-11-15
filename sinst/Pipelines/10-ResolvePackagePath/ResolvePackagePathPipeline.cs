@@ -15,13 +15,15 @@ namespace Sitecore.Remote.Installation.Pipelines
     /// </summary>
     /// <param name="uriPath">The uriPath.</param>
     /// <returns></returns>
-    public static async Task<string> Run(string uriPath)
+    public static string Run(string uriPath)
     {
       var package = new Package(uriPath);
 
-      await Pipeline.Run(PipelineNames.ResolvePackagePath, package);
-
-      return package.Path;
+      if (Pipeline.Run(PipelineNames.ResolvePackagePath, package).Result)
+      {
+        return package.Path;
+      }
+      return null;
     }
   }
 }

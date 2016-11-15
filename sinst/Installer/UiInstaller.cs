@@ -65,9 +65,12 @@ namespace Sitecore.Remote.Installation.Installer
 
       this.BeginInstallation(packageUri);
       
-      var packagePath = ResolvePackagePathPipeline.Run(packageUri).Result;
-     
-      InstallPackagePipeline.Run(packagePath, options.Host, options.Credentials).Wait();
+      var packagePath = ResolvePackagePathPipeline.Run(packageUri);
+
+      if (!string.IsNullOrEmpty(packagePath))
+      {
+        InstallPackagePipeline.Run(packagePath, options.Host, options.Credentials).Wait();
+      }
 
       this.EndInstallation();
 

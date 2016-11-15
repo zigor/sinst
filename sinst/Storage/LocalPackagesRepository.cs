@@ -21,11 +21,20 @@ namespace Sitecore.Remote.Installation.Storage
     {
       Assert.ArgumentNotNullOrEmpty(path, nameof(path));
 
-      var uri = new Uri(path);
+      Uri uri;
+      try
+      {
+        uri = new Uri(Path.GetFullPath(path));
+      }
+      catch (UriFormatException ex)
+      {
+        throw new ArgumentException("Invalid path specified: " + ex.Message);
+      }
+
       var packageName = HttpUtility.UrlDecode(uri.Segments.LastOrDefault());
       if (string.IsNullOrEmpty(uri.AbsoluteUri) || string.IsNullOrEmpty(packageName))
       {
-        throw new ArgumentException("Invalid path specified.", nameof(path));
+        throw new ArgumentException("Invalid path specified:" + path);
       }
       
       var temporaryPackageName = Path.Combine(Path.GetTempPath(), packageName);
@@ -34,8 +43,15 @@ namespace Sitecore.Remote.Installation.Storage
       {
         return temporaryPackageName;
       }
-    
-      new WebClient().DownloadFile(uri, temporaryPackageName);
+
+      try
+      {
+        new WebClient().DownloadFile(uri, temporaryPackageName);
+      }
+      catch (WebException ex)
+      {
+        throw new ArgumentException(ex.Message);
+      }
 
       return temporaryPackageName;
     }
